@@ -14,7 +14,7 @@ namespace RPGWeaponsTest
 
         static void Main(string[] args)
         {
-           // Weapon[] myArsenal = SetupWeapons();
+            // Weapon[] myArsenal = SetupWeapons();
             Weapon[] myArsenal = LoadWeapons("weapons.csv");
 
             bool gameRunning = true;
@@ -33,7 +33,7 @@ namespace RPGWeaponsTest
             handedNess = Ask("Welcome adventurer, are you left or right handed (answer left or right)?\nYou have 5 seconds to answer", 5).ToLower();
 
             Prompt($"So you are {handedNess} handed.");
-          
+
             while (gameRunning)
             {
                 //Ask player for command and convert to lowercase.
@@ -49,6 +49,20 @@ namespace RPGWeaponsTest
                         {
                             Prompt(weap.name);
                             //do other stuff.
+                        }
+                        break;
+
+                    //'dropping' of removing a weapon from the array (weapons.csv)
+                    case "drop":
+                        foreach (Weapon weap in myArsenal)
+                        {
+                            Prompt(weap.name);
+                            string drop = ($"Type a weapon to drop...").ToLower();
+
+                            if (weap.name == "Excalibur")
+                            {
+                                
+                            }
                         }
                         break;
 
@@ -97,7 +111,7 @@ namespace RPGWeaponsTest
                         break;
                 }
             }
-       
+
 
             Prompt($"Thank you for playing.");
         }
@@ -107,11 +121,11 @@ namespace RPGWeaponsTest
             Weapon[] tmpArr;
 
             string[] lines = File.ReadAllLines(filename);
-            tmpArr = new Weapon[lines.Length -1];
-            for(int i = 1; i < lines.Length; i++)
+            tmpArr = new Weapon[lines.Length - 1];
+            for (int i = 1; i < lines.Length; i++)
             {
                 string[] lineValues = lines[i].Split(',');
-                
+
                 if (lineValues[0] == "m")
                 {
                     //Create a Melee weapon
@@ -145,7 +159,7 @@ namespace RPGWeaponsTest
                         int.TryParse(lineValues[6], out tmpRanged.age);
                     tmpArr[i - 1] = tmpRanged;
                 }
-                
+
 
 
 
@@ -211,8 +225,8 @@ namespace RPGWeaponsTest
             int checksToPerform = 10;//ie 10 per second
             int checkCounter = 0;
             bool isAnswering = false;
-            
-            int interval = (timeToWait*1000) / checksToPerform;
+
+            int interval = (timeToWait * 1000) / checksToPerform;
             Prompt(_str);
             while (checksToPerform > checkCounter)
             {
@@ -232,7 +246,7 @@ namespace RPGWeaponsTest
             }
             if (isAnswering)
             {
-            
+
                 return Console.ReadLine();
             }
             return "No Comment.";
